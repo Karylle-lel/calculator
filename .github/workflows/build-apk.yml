@@ -26,10 +26,11 @@ jobs:
         with:
           gradle-version: 8.14.2
 
-      # Android SDK (Android 16 / API 36)
-      - uses: android-actions/setup-android@v3
+      # Android SDK (already on GitHub's computer, just add Android 16 / API 36)
       - name: Install Android platform and build tools
-        run: sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" "platform-tools"
 
       - name: Install Cordova
         run: npm install -g cordova
